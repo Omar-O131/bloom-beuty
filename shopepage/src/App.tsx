@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState, type SVGProps } from "react";
+import HeaderMenuPage from "./header-menu/HeaderMenuPage";
 
 type NavItem = {
   label: string;
@@ -611,8 +612,6 @@ function App() {
   const [itemsPerPage, setItemsPerPage] = useState("12");
   const [currentPage, setCurrentPage] = useState(1);
   const [openMenu, setOpenMenu] = useState(false);
-  const [menuTab, setMenuTab] = useState<"categories" | "menu">("categories");
-  const [menuSearch, setMenuSearch] = useState("");
   const visualLastPage = 83;
 
   const filteredCategories = useMemo(
@@ -681,6 +680,12 @@ function App() {
   }, [itemsPerPage, maxPrice, minPrice, selectedBrand, selectedCategory, sortBy]);
 
   useEffect(() => {
+    if (currentPage > displayPageCount) {
+      setCurrentPage(displayPageCount);
+    }
+  }, [currentPage, displayPageCount]);
+
+  useEffect(() => {
     const previousOverflow = document.body.style.overflow;
     document.body.style.overflow = openMenu ? "hidden" : previousOverflow;
 
@@ -689,81 +694,12 @@ function App() {
     };
   }, [openMenu]);
 
-  useEffect(() => {
-    if (currentPage > displayPageCount) {
-      setCurrentPage(displayPageCount);
-    }
-  }, [currentPage, displayPageCount]);
-
-  const activeDrawerItems = (menuTab === "categories" ? categories : drawerMenu).filter((item) =>
-    item.label.toLowerCase().includes(menuSearch.toLowerCase()),
-  );
-
   const minPercent = ((minPrice - 40) / (3500 - 40)) * 100;
   const maxPercent = ((maxPrice - 40) / (3500 - 40)) * 100;
 
   return (
     <div className="page-shell">
-      {openMenu ? (
-        <button
-          aria-label="Close menu"
-          className="menu-overlay"
-          onClick={() => setOpenMenu(false)}
-          type="button"
-        />
-      ) : null}
-
-      <aside className={openMenu ? "mobile-menu mobile-menu--open" : "mobile-menu"} aria-hidden={!openMenu}>
-        <div className="mobile-menu__header">
-          <strong>Menu</strong>
-          <button onClick={() => setOpenMenu(false)} type="button">
-            x
-          </button>
-        </div>
-
-        <div className="mobile-menu__logo">
-          <img
-            alt="Bloom Beauty"
-            src="https://cdn.beauty-bloom.net/wp-content/uploads/2025/08/Logo-bloom.webp"
-          />
-        </div>
-
-        <div className="mobile-menu__search">
-          <input
-            onChange={(event) => setMenuSearch(event.target.value)}
-            placeholder={menuTab === "categories" ? "Search categories..." : "Search menu..."}
-            type="text"
-            value={menuSearch}
-          />
-        </div>
-
-        <div className="mobile-menu__section">
-          <div className="mobile-menu__tabs">
-            <button
-              className={menuTab === "categories" ? "mobile-menu__tab mobile-menu__tab--active" : "mobile-menu__tab"}
-              onClick={() => setMenuTab("categories")}
-              type="button"
-            >
-              Categories
-            </button>
-            <button
-              className={menuTab === "menu" ? "mobile-menu__tab mobile-menu__tab--active" : "mobile-menu__tab"}
-              onClick={() => setMenuTab("menu")}
-              type="button"
-            >
-              Menu
-            </button>
-          </div>
-
-          <div className="mobile-menu__list">
-            {activeDrawerItems.map((item) => (
-              <a href={item.href} key={item.label} onClick={() => setOpenMenu(false)}>
-                {item.label}
-              </a>
-            ))}
-          </div>
-        </div>
-      </aside>
+      <HeaderMenuPage isOpen={openMenu} onClose={() => setOpenMenu(false)} />
 
       <header className="top-header">
         <div className="top-header__inner">
@@ -775,16 +711,14 @@ function App() {
           </a>
 
           <button aria-label="Open menu" className="menu-button" onClick={() => setOpenMenu(true)} type="button">
-            <span />
-            <span />
-            <span />
+            <MenuIcon />
           </button>
 
           <div className="search-bar">
             <span>Search for</span>
-            <strong> 🔥 Blushes</strong>
+            <strong>Mascara</strong>
             <button aria-label="Search" className="search-bar__icon" type="button">
-              <span />
+              <SearchIcon />
             </button>
           </div>
 
@@ -801,11 +735,11 @@ function App() {
             <span>
               <BagIcon /> 0
             </span>
-            <a className="header-language" href="https://beauty-bloom.net/ar/%d8%aa%d8%b3%d9%88%d9%82/">
+            <a className="header-language" href="https://beauty-bloom.net/ar/">
               <img
                 alt=""
                 aria-hidden="true"
-                src="https://upload.wikimedia.org/wikipedia/commons/0/0d/Flag_of_Saudi_Arabia.svg"
+                src="https://beauty-bloom.net/wp-content/plugins/translatepress-multilingual/assets/flags/4x3/ar.svg"
               />
               <span>Arabic</span>
             </a>
@@ -817,7 +751,8 @@ function App() {
         <div className="nav-strip__inner">
           {navItems.map((item) => (
             <a className="nav-chip" href={item.href} key={item.label}>
-              {item.label}
+              <span className="nav-chip__frame" />
+              <span className="nav-chip__text">{item.label}</span>
             </a>
           ))}
         </div>

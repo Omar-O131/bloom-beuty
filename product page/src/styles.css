@@ -163,18 +163,27 @@ img {
 }
 
 .menu-toggle {
-  display: grid;
-  gap: 4px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   width: 28px;
   padding: 0;
   background: transparent;
   border: 0;
+  color: #fff;
+  cursor: pointer;
 }
 
-.menu-toggle span {
-  height: 3px;
-  background: #fff;
-  border-radius: 999px;
+.menu-toggle svg,
+.search-bar__icon svg,
+.header-icon-wrap svg {
+  width: 20px;
+  height: 20px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
 }
 
 .search-bar {
@@ -221,26 +230,9 @@ img {
   cursor: pointer;
 }
 
-.search-bar__icon span {
-  display: block;
-  width: 12px;
-  height: 12px;
-  margin: 0 auto;
-  border: 2px solid #fff;
-  border-radius: 50%;
-  position: relative;
-}
-
-.search-bar__icon span::after {
-  content: "";
-  position: absolute;
-  right: -5px;
-  bottom: -5px;
-  width: 7px;
-  height: 2px;
-  background: #fff;
-  transform: rotate(45deg);
-  transform-origin: center;
+.search-bar__icon svg {
+  width: 16px;
+  height: 16px;
 }
 
 .header-actions {
@@ -271,16 +263,6 @@ img {
   align-items: center;
   justify-content: center;
   color: #fff;
-}
-
-.header-icon-wrap svg {
-  width: 20px;
-  height: 20px;
-  fill: none;
-  stroke: currentColor;
-  stroke-width: 2;
-  stroke-linecap: round;
-  stroke-linejoin: round;
 }
 
 .header-icon-wrap.with-count {
@@ -1135,10 +1117,6 @@ img {
     width: 22px;
   }
 
-  .menu-toggle span {
-    height: 2.5px;
-  }
-
   .search-bar {
     min-height: 36px;
     padding: 0 44px 0 12px;
@@ -1155,16 +1133,9 @@ img {
     height: 30px;
   }
 
-  .search-bar__icon span {
-    width: 9px;
-    height: 9px;
-    border-width: 1.7px;
-  }
-
-  .search-bar__icon span::after {
-    right: -4px;
-    bottom: -4px;
-    width: 6px;
+  .search-bar__icon svg {
+    width: 13px;
+    height: 13px;
   }
 
   .header-actions {

@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import HeaderMenuPage from "./HeaderMenuPage";
 
 const product = {
   brand: "CHANEL",
@@ -27,36 +28,13 @@ const product = {
   ],
 };
 
-const shopCategories = [
-  "Makeup",
-  "New Arrivals",
-  "Skin Care",
-  "Hair Care",
-  "Perfumes",
-  "Brushes & Tools",
-];
-
-const drawerCategories = [
-  { label: "BEAUTY ACCESSORIES", href: "https://beauty-bloom.net/shop/?filter_cat=makeup-pouch" },
-  { label: "BEST SELLERS", href: "https://beauty-bloom.net/shop/?filter_cat=best-sellers" },
-  { label: "BODY CARE", href: "https://beauty-bloom.net/shop/?filter_cat=cleansers-body" },
-  { label: "CHEEKS", href: "https://beauty-bloom.net/shop/?filter_cat=cheek" },
-  { label: "EYES", href: "https://beauty-bloom.net/shop/?filter_cat=eyes" },
-  { label: "FACE", href: "https://beauty-bloom.net/shop/?filter_cat=face" },
-  { label: "LIPS", href: "https://beauty-bloom.net/shop/?filter_cat=lips" },
-  { label: "NAIL POLISH", href: "https://beauty-bloom.net/shop/?filter_cat=nail-polish" },
-  { label: "ORAL CARE", href: "https://beauty-bloom.net/shop/?filter_cat=oral-care" },
-  { label: "PERFUMES", href: "https://beauty-bloom.net/shop/?filter_cat=perfumes" },
-  { label: "UNCATEGORIZED", href: "https://beauty-bloom.net/shop/" },
-];
-
-const drawerMenu = [
-  { label: "HOME", href: "https://beauty-bloom.net/" },
-  { label: "SHOP", href: "https://beauty-bloom.net/shop/?stock_status=in_stock" },
-  { label: "ABOUT US", href: "https://beauty-bloom.net/about-us/" },
-  { label: "CONTACT", href: "https://beauty-bloom.net/contact/" },
-  { label: "TRACK ORDER", href: "https://beauty-bloom.net/track-your-order/" },
-  { label: "MY ACCOUNT", href: "https://beauty-bloom.net/my-account/" },
+const navItems = [
+  { label: "Makeup", href: "https://beauty-bloom.net/product-tag/makeup/" },
+  { label: "New Arrivals", href: "https://beauty-bloom.net/product-tag/new-arrivals/" },
+  { label: "Skin Care", href: "https://beauty-bloom.net/product-tag/skin-care/" },
+  { label: "Hair Care", href: "https://beauty-bloom.net/product-tag/hair-care/" },
+  { label: "Perfumes", href: "https://beauty-bloom.net/product-tag/perfumes/" },
+  { label: "Brushes & Tools", href: "https://beauty-bloom.net/product-tag/brushes-tools/" },
 ];
 
 const supportCards = [
@@ -271,32 +249,51 @@ function FooterContactIcon({ type }) {
   );
 }
 
-function HeaderActionIcon({ type }) {
-  if (type === "user") {
-    return (
-      <svg viewBox="0 0 24 24" aria-hidden="true">
-        <circle cx="12" cy="8" r="4" />
-        <path d="M20 21a8 8 0 0 0-16 0" />
-      </svg>
-    );
-  }
+function MenuIcon() {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M4 7H20" />
+      <path d="M4 12H20" />
+      <path d="M4 17H20" />
+    </svg>
+  );
+}
 
-  if (type === "message") {
-    return (
-      <svg viewBox="0 0 24 24" aria-hidden="true">
-        <path d="M21 11.5a8.4 8.4 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.4 8.4 0 0 1-3.8-.9L3 21l1.9-5.7a8.4 8.4 0 0 1-.9-3.8 8.5 8.5 0 0 1 8.5-8.5h.5a8.5 8.5 0 0 1 8 8z" />
-      </svg>
-    );
-  }
+function SearchIcon() {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <circle cx="11" cy="11" r="6.5" />
+      <path d="M16 16L21 21" />
+    </svg>
+  );
+}
 
-  if (type === "heart") {
-    return (
-      <svg viewBox="0 0 24 24" aria-hidden="true">
-        <path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1.1-1.1a5.5 5.5 0 0 0-7.8 7.8l1.1 1.1L12 21.2l7.8-7.8 1.1-1.1a5.5 5.5 0 0 0 0-7.7z" />
-      </svg>
-    );
-  }
+function UserIcon() {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <circle cx="12" cy="8" r="4" />
+      <path d="M4 21C4 17.5 7.5 15 12 15C16.5 15 20 17.5 20 21" />
+    </svg>
+  );
+}
 
+function MessageIcon() {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M21 11.5a8.4 8.4 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.4 8.4 0 0 1-3.8-.9L3 21l1.9-5.7a8.4 8.4 0 0 1-.9-3.8 8.5 8.5 0 0 1 8.5-8.5h.5a8.5 8.5 0 0 1 8 8z" />
+    </svg>
+  );
+}
+
+function HeartIcon() {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M12 20.5L10.7 19.3C5.8 14.8 3 12.1 3 8.8C3 6.1 5 4 7.7 4C9.2 4 10.7 4.7 11.7 5.9C12.7 4.7 14.2 4 15.7 4C18.4 4 20.4 6.1 20.4 8.8C20.4 12.1 17.6 14.8 12.7 19.3L12 20.5Z" />
+    </svg>
+  );
+}
+
+function CartIcon() {
   return (
     <svg viewBox="0 0 24 24" aria-hidden="true">
       <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z" />
@@ -311,8 +308,6 @@ function App() {
   const [quantity, setQuantity] = useState(1);
   const [activeTab, setActiveTab] = useState(tabs[0]);
   const [openMenu, setOpenMenu] = useState(false);
-  const [menuTab, setMenuTab] = useState("categories");
-  const [menuSearch, setMenuSearch] = useState("");
   const [zoomStyle, setZoomStyle] = useState({
     backgroundPosition: "50% 50%",
     opacity: 0,
@@ -326,10 +321,6 @@ function App() {
       document.body.style.overflow = previousOverflow;
     };
   }, [openMenu]);
-
-  const activeDrawerItems = (menuTab === "categories" ? drawerCategories : drawerMenu).filter((item) =>
-    item.label.toLowerCase().includes(menuSearch.toLowerCase()),
-  );
 
   const handleZoomMove = (event) => {
     const bounds = event.currentTarget.getBoundingClientRect();
@@ -350,119 +341,43 @@ function App() {
   };
 
   return (
-      <div className="page-shell">
-      {openMenu ? (
-        <button
-          type="button"
-          className="menu-overlay"
-          aria-label="Close menu overlay"
-          onClick={() => setOpenMenu(false)}
-        />
-      ) : null}
-
-      <aside
-        id="site-menu"
-        className={`side-drawer ${openMenu ? "open" : ""}`}
-        aria-hidden={!openMenu}
-      >
-        <div className="side-drawer__top">
-          <strong>Menu</strong>
-          <button type="button" aria-label="Close menu" onClick={() => setOpenMenu(false)}>
-            X
-          </button>
-        </div>
-
-        <div className="side-drawer__logo">
-          <img
-            src="https://cdn.beauty-bloom.net/wp-content/uploads/2025/08/Logo-bloom.webp"
-            alt="Bloom Beauty"
-          />
-        </div>
-
-        <div className="side-drawer__search">
-          <input
-            type="text"
-            value={menuSearch}
-            onChange={(event) => setMenuSearch(event.target.value)}
-            placeholder={menuTab === "categories" ? "Search categories..." : "Search menu..."}
-          />
-        </div>
-
-        <div className="side-drawer__tabs">
-          <button
-            type="button"
-            className={menuTab === "categories" ? "active" : ""}
-            onClick={() => setMenuTab("categories")}
-          >
-            CATEGORIES
-          </button>
-          <button
-            type="button"
-            className={menuTab === "menu" ? "active" : ""}
-            onClick={() => setMenuTab("menu")}
-          >
-            MENU
-          </button>
-        </div>
-
-        <div className="side-drawer__content">
-          {activeDrawerItems.map((item) => (
-            <a
-              key={item.label}
-              className="side-drawer__item"
-              href={item.href}
-              onClick={() => setOpenMenu(false)}
-            >
-              <span>{item.label}</span>
-              <span aria-hidden="true">{">"}</span>
-            </a>
-          ))}
-        </div>
-      </aside>
+    <div className="page-shell">
+      <HeaderMenuPage isOpen={openMenu} onClose={() => setOpenMenu(false)} />
 
       <header className="shop-header">
-        <div className="shop-header__logo">
+        <a className="shop-header__logo" href="https://beauty-bloom.net/">
           <img
             src="https://cdn.beauty-bloom.net/wp-content/uploads/2025/08/Logo-bloom.webp"
             alt="Bloom Beauty"
           />
-        </div>
+        </a>
 
-        <button
-          type="button"
-          className="menu-toggle"
-          aria-label="Open menu"
-          aria-expanded={openMenu}
-          aria-controls="site-menu"
-          onClick={() => setOpenMenu(true)}
-        >
-          <span />
-          <span />
-          <span />
+        <button type="button" className="menu-toggle" aria-label="Open menu" onClick={() => setOpenMenu(true)}>
+          <MenuIcon />
         </button>
 
         <div className="search-bar">
           <span>Search for</span>
-          <strong> Lipsticks</strong>
+          <strong> Mascara</strong>
           <button type="button" className="search-bar__icon" aria-label="Search">
-            <span />
+            <SearchIcon />
           </button>
         </div>
 
         <div className="header-actions">
           <span className="header-icon-wrap">
-            <HeaderActionIcon type="user" />
+            <UserIcon />
           </span>
           <span className="header-icon-wrap with-count">
-            <HeaderActionIcon type="message" />
+            <MessageIcon />
             <em>0</em>
           </span>
           <span className="header-icon-wrap with-count">
-            <HeaderActionIcon type="heart" />
+            <HeartIcon />
             <em>0</em>
           </span>
           <span className="header-icon-wrap with-count">
-            <HeaderActionIcon type="cart" />
+            <CartIcon />
             <em>0</em>
           </span>
           <span className="header-language">
@@ -476,10 +391,10 @@ function App() {
       </header>
 
       <nav className="category-strip">
-        {shopCategories.map((item) => (
-          <button key={item} type="button" className="category-pill">
-            <span>{item}</span>
-          </button>
+        {navItems.map((item) => (
+          <a key={item.label} href={item.href} className="category-pill">
+            <span>{item.label}</span>
+          </a>
         ))}
       </nav>
 
