@@ -24,26 +24,27 @@ type WishlistItem = {
   tags?: string[];
 };
 
-const categories: MenuItem[] = [
-  { label: "Beauty Accessories", href: "#beauty-accessories" },
-  { label: "Best Sellers", href: "#best-sellers" },
-  { label: "Body Care", href: "#body-care" },
-  { label: "Cheeks", href: "#cheeks" },
-  { label: "Eyes", href: "#eyes" },
-  { label: "Face", href: "#face" },
-  { label: "Lips", href: "#lips" },
-  { label: "Nail Polish", href: "#nail-polish" },
-  { label: "Oral Care", href: "#oral-care" },
-  { label: "Perfumes", href: "#perfumes" }
+const mobileCategories = [
+  "BEAUTY ACCESSORIES",
+  "BEST SELLERS",
+  "BODY CARE",
+  "CHEEKS",
+  "EYES",
+  "FACE",
+  "LIPS",
+  "NAIL POLISH",
+  "ORAL CARE",
+  "PERFUMES",
+  "UNCATEGORIZED"
 ];
 
-const menuLinks: MenuItem[] = [
-  { label: "Home", href: "#home" },
-  { label: "Shop", href: "#shop" },
-  { label: "About Us", href: "#about-us" },
-  { label: "Contact", href: "#contact" },
-  { label: "Track Order", href: "#track-order" },
-  { label: "My Account", href: "#my-account" }
+const mobileMenu = [
+  "HOME",
+  "SHOP",
+  "ABOUT US",
+  "CONTACT",
+  "TRACK ORDER",
+  "MY ACCOUNT"
 ];
 
 const navLinks: MenuItem[] = [
@@ -212,6 +213,17 @@ function CloseIcon() {
   );
 }
 
+function BloomLogo() {
+  return (
+    <a className="brand-mark" href="#home" aria-label="Bloom Beauty home">
+      <img
+        src="https://cdn.beauty-bloom.net/wp-content/uploads/2025/08/Logo-bloom.webp"
+        alt="Bloom Beauty"
+      />
+    </a>
+  );
+}
+
 function LocationIcon() {
   return (
     <svg viewBox="0 0 24 24" aria-hidden="true">
@@ -350,51 +362,39 @@ function PlusIcon() {
   );
 }
 
-function BloomLogo() {
-  return (
-    <a className="brand-mark" href="#home" aria-label="Bloom Beauty home">
-      <img
-        src="https://cdn.beauty-bloom.net/wp-content/uploads/2025/08/Logo-bloom.webp"
-        alt="Bloom Beauty"
-      />
-    </a>
-  );
-}
-
-function OffCanvasMenu({
-  open,
-  onClose
-}: {
-  open: boolean;
-  onClose: () => void;
-}) {
+export default function App() {
+  const [searchQuery, setSearchQuery] = useState("");
+  const [openMenu, setOpenMenu] = useState(false);
   const [activeTab, setActiveTab] = useState<"categories" | "menu">("categories");
+  const featureIcons: Record<string, JSX.Element> = {
+    delivery: <TruckIcon />,
+    authentic: <ShieldIcon />,
+    prices: <DollarIcon />,
+    shipping: <GlobeIcon />
+  };
+  useEffect(() => {
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = openMenu ? "hidden" : previousOverflow;
+
+    return () => {
+      document.body.style.overflow = previousOverflow;
+    };
+  }, [openMenu]);
 
   return (
-    <>
-      <div
-        className={`menu-backdrop${open ? " is-visible" : ""}`}
-        onClick={onClose}
-        aria-hidden={!open}
-      />
+    <div className="page-shell">
+      {openMenu ? <div className="menu-backdrop is-visible" onClick={() => setOpenMenu(false)} aria-hidden="true" /> : null}
 
-      <aside className={`side-menu${open ? " is-open" : ""}`} aria-hidden={!open}>
+      <aside className={`side-menu${openMenu ? " is-open" : ""}`} aria-hidden={!openMenu}>
         <div className="side-menu__header">
           <span>Menu</span>
-          <button type="button" className="icon-button icon-button--plain" onClick={onClose} aria-label="Close menu">
+          <button type="button" className="icon-button icon-button--plain" onClick={() => setOpenMenu(false)} aria-label="Close menu">
             <CloseIcon />
           </button>
         </div>
 
-        <div className="side-menu__logo">
-          <BloomLogo />
-        </div>
-
         <form className="side-menu__search" action="#search">
           <input type="search" placeholder="Search for products..." aria-label="Search products" />
-          <button type="submit" className="search-submit" aria-label="Search">
-            <SearchIcon />
-          </button>
         </form>
 
         <div className="side-menu__tabs" role="tablist" aria-label="Menu sections">
@@ -419,58 +419,28 @@ function OffCanvasMenu({
         </div>
 
         <nav className="side-menu__list" aria-label={activeTab === "categories" ? "Categories" : "Site menu"}>
-          {(activeTab === "categories" ? categories : menuLinks).map((item) => (
-            <a key={item.label} href={item.href} onClick={onClose}>
-              {item.label}
+          {(activeTab === "categories" ? mobileCategories : mobileMenu).map((item) => (
+            <a key={item} href="#">
+              {item}
             </a>
           ))}
         </nav>
       </aside>
-    </>
-  );
-}
-
-export default function App() {
-  const [menuOpen, setMenuOpen] = useState(false);
-  const [searchQuery, setSearchQuery] = useState("");
-  const featureIcons: Record<string, JSX.Element> = {
-    delivery: <TruckIcon />,
-    authentic: <ShieldIcon />,
-    prices: <DollarIcon />,
-    shipping: <GlobeIcon />
-  };
-
-  useEffect(() => {
-    const previousOverflow = document.body.style.overflow;
-    document.body.style.overflow = menuOpen ? "hidden" : previousOverflow;
-
-    return () => {
-      document.body.style.overflow = previousOverflow;
-    };
-  }, [menuOpen]);
-
-  const mobileSearchLabel = searchQuery.trim() || "Mascara";
-
-  return (
-    <div className="page-shell">
-      <OffCanvasMenu open={menuOpen} onClose={() => setMenuOpen(false)} />
 
       <header className="site-header">
         <div className="header-top">
           <div className="mobile-bar">
-            <button type="button" className="icon-button icon-button--plain" onClick={() => setMenuOpen(true)} aria-label="Open menu">
+            <button type="button" className="icon-button icon-button--plain mobile-menu-button" onClick={() => setOpenMenu(true)} aria-label="Open menu">
               <MenuIcon />
             </button>
-            <div className="mobile-logo">
-              <BloomLogo />
-            </div>
-            <div className="mobile-spacer" aria-hidden="true" />
+            <BloomLogo />
+            <div className="mobile-bar__spacer" aria-hidden="true" />
           </div>
 
           <div className="mobile-search">
             <div className="mobile-search__pill">
               <span className="mobile-search__label">Search for</span>
-              <span className="mobile-search__value">{mobileSearchLabel}</span>
+              <span className="mobile-search__value">🔥 {searchQuery.trim() || "Lip Gloss"}</span>
               <button type="button" className="search-submit" aria-label="Search">
                 <SearchIcon />
               </button>
@@ -487,64 +457,80 @@ export default function App() {
             </button>
             <button type="button" className="action-chip" aria-label="Wishlist">
               <HeartIcon />
-              <span>0</span>
+              <span>5</span>
             </button>
             <button type="button" className="action-chip" aria-label="Cart">
               <CartIcon />
-              <span>0</span>
+              <span>1</span>
             </button>
-            <a className="language-link" href="#arabic">
+            <a className="language-link" href="https://beauty-bloom.net/ar/">
+              <img
+                src="https://upload.wikimedia.org/wikipedia/commons/0/0d/Flag_of_Saudi_Arabia.svg"
+                alt=""
+                className="language-flag-image"
+              />
               Arabic
             </a>
           </div>
 
           <div className="desktop-bar">
             <BloomLogo />
-
-            <button type="button" className="icon-button desktop-menu-button icon-button--plain" onClick={() => setMenuOpen(true)} aria-label="Open menu">
+            <button type="button" className="icon-button icon-button--plain" onClick={() => setOpenMenu(true)} aria-label="Open menu">
               <MenuIcon />
             </button>
 
             <form className="desktop-search" action="#search">
               <input
-                type="search"
-                placeholder="Search for products"
+                type="text"
                 value={searchQuery}
                 onChange={(event) => setSearchQuery(event.target.value)}
+                placeholder="Search for Sprays"
                 aria-label="Search products"
               />
-              <button type="submit" className="search-submit" aria-label="Search">
+              <button type="button" className="search-submit" aria-label="Search">
                 <SearchIcon />
               </button>
             </form>
 
             <div className="desktop-actions">
-              <button type="button" className="icon-button icon-button--plain" aria-label="Account">
+              <button type="button" className="desktop-action-chip" aria-label="Account">
                 <UserIcon />
               </button>
-              <button type="button" className="icon-button icon-button--plain" aria-label="Compare">
+              <button type="button" className="desktop-action-chip" aria-label="Compare">
                 <RefreshIcon />
+                <span>0</span>
               </button>
-              <button type="button" className="icon-button icon-button--plain" aria-label="Wishlist">
+              <button type="button" className="desktop-action-chip" aria-label="Wishlist">
                 <HeartIcon />
+                <span>0</span>
               </button>
-              <button type="button" className="icon-button icon-button--plain" aria-label="Cart">
+              <button type="button" className="desktop-action-chip" aria-label="Cart">
                 <CartIcon />
+                <span>0</span>
               </button>
+              <a className="desktop-language-link" href="https://beauty-bloom.net/ar/">
+                <img
+                  src="https://upload.wikimedia.org/wikipedia/commons/0/0d/Flag_of_Saudi_Arabia.svg"
+                  alt=""
+                  className="language-flag-image"
+                />
+                Arabic
+              </a>
             </div>
           </div>
         </div>
-
-        <nav className="desktop-nav" aria-label="Primary categories">
-          {navLinks.map((item) => (
-            <a key={item.label} href={item.href} className="desktop-nav__link">
-              <span>{item.label}</span>
-            </a>
-          ))}
-        </nav>
       </header>
 
+      <nav className="desktop-nav" aria-label="Primary categories">
+        {navLinks.map((item) => (
+          <a key={item.label} href={item.href} className="desktop-nav__link">
+            <span>{item.label}</span>
+          </a>
+        ))}
+      </nav>
+
       <main className="main-content">
+        <h1 className="mobile-page-title">♡ WISHLIST</h1>
         <section className="wishlist-table" aria-label="Wishlist products">
           <div className="wishlist-table__head">
             <span className="wishlist-table__spacer" />
@@ -611,8 +597,8 @@ export default function App() {
                     <button type="button" className="action-icon-button" aria-label="Quick view" data-hover-label="Quick view">
                       <EyeIcon />
                     </button>
-                    <button type="button" className="wishlist-action-button">
-                      {item.action}
+                    <button type="button" className="wishlist-action-button wishlist-action-button--with-icon">
+                      <span>{item.action}</span>
                     </button>
                     <button type="button" className="action-icon-button" aria-label="Remove item" data-hover-label="Delete">
                       <TrashIcon />
@@ -627,8 +613,8 @@ export default function App() {
           <div className="wishlist-toolbar">
             <div className="wishlist-toolbar__left">
               <select aria-label="Bulk action">
-                <option>Add to cart</option>
                 <option>Remove</option>
+                <option>Add to cart</option>
               </select>
               <button type="button" className="toolbar-button toolbar-button--dark">
                 APPLY
@@ -637,6 +623,7 @@ export default function App() {
 
             <div className="wishlist-toolbar__right">
               <button type="button" className="toolbar-button toolbar-button--light">
+                <span className="toolbar-button__icon">✉</span>
                 ASK FOR AN ESTIMATE
               </button>
               <button type="button" className="toolbar-button toolbar-button--dark">
@@ -652,8 +639,8 @@ export default function App() {
                 <a
                   key={item.label}
                   href={item.href}
-                  target="_blank"
-                  rel="noreferrer"
+                  target={item.href.startsWith("mailto:") ? undefined : "_blank"}
+                  rel={item.href.startsWith("mailto:") ? undefined : "noreferrer"}
                   data-hover-label={item.hoverLabel}
                 >
                   {item.label}
