@@ -257,64 +257,37 @@ main {
 .account-section {
   max-width: 1280px;
   margin: 0 auto;
-  padding: 32px 16px 72px;
+  padding: 48px 16px 72px;
   background: #ffffff;
-}
-
-.account-heading {
-  padding: 32px 0 34px;
-  text-align: center;
-}
-
-.back-link {
-  display: inline-block;
-  margin-bottom: 12px;
-  color: #666;
-  font-size: 13px;
-}
-
-.breadcrumbs {
-  display: flex;
-  justify-content: center;
-  gap: 8px;
-  margin-bottom: 14px;
-  color: #666;
-  font-size: 14px;
-}
-
-.account-heading h1 {
-  margin: 0;
-  font-size: 52px;
-  font-weight: 400;
-  color: #222;
 }
 
 .account-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 28px;
+  gap: 60px;
 }
 
 .account-card {
   border: 1px solid var(--line);
   background: #fff;
-  padding: 36px;
+  padding: 40px 58px 36px;
 }
 
 .account-card h2 {
-  margin: 0 0 22px;
-  font-size: 36px;
-  font-weight: 400;
+  margin: 0 0 24px;
+  font-size: 25px;
+  font-weight: 700;
   color: #222;
 }
 
 .account-form {
   display: grid;
-  gap: 14px;
+  gap: 16px;
 }
 
 .account-form label {
-  font-size: 14px;
+  font-size: 15px;
+  font-weight: 700;
   color: #222;
 }
 
@@ -322,10 +295,11 @@ main {
 .account-form input[type="password"],
 .account-form input[type="email"] {
   width: 100%;
-  min-height: 48px;
-  padding: 12px 14px;
+  min-height: 38px;
+  padding: 8px 12px;
   border: 1px solid var(--line);
   outline: none;
+  font-size: 15px;
 }
 
 .remember-row {
@@ -333,41 +307,71 @@ main {
   align-items: center;
   justify-content: space-between;
   gap: 16px;
-  color: #666;
+  color: #333;
   font-size: 14px;
+  font-weight: 700;
 }
 
 .checkbox-row {
   display: inline-flex;
   align-items: center;
   gap: 8px;
+  font-weight: 700;
 }
 
 .account-copy {
   margin: 0;
-  color: #666;
-  line-height: 1.7;
-  font-size: 14px;
+  color: #3c3c3c;
+  line-height: 1.55;
+  font-size: 15px;
+  font-weight: 700;
 }
 
 .account-submit {
-  width: fit-content;
+  width: 100%;
   transform: skewX(-10deg);
   border: 1px solid #222;
   background: #222;
   color: #fff;
   padding: 0;
   cursor: pointer;
+  margin-top: 2px;
 }
 
 .account-submit span {
   display: inline-flex;
   transform: skewX(10deg);
-  padding: 13px 26px;
+  justify-content: center;
+  width: 100%;
+  padding: 10px 26px;
   font-size: 13px;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.12em;
+  font-style: italic;
+}
+
+.password-field {
+  position: relative;
+}
+
+.password-field input {
+  padding-right: 40px;
+}
+
+.password-toggle {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  border: 0;
+  background: transparent;
+  color: #4a4a4a;
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
 }
 
 .menu-overlay {
@@ -672,11 +676,6 @@ main {
   background: #543c4e;
   color: #fff;
   cursor: pointer;
-  transition: background-color 0.2s ease;
-}
-
-.instagram-button:hover {
-  background: var(--pink-dark);
 }
 
 .footer-links,
@@ -701,11 +700,6 @@ main {
   font-weight: 700;
   cursor: pointer;
   padding: 0;
-  transition: color 0.2s ease;
-}
-
-.footer-link-button:hover {
-  color: #fff;
 }
 
 .contact-list li {
@@ -827,12 +821,9 @@ main {
 }
 
 @media (max-width: 767px) {
-  .account-heading h1 {
-    font-size: 38px;
-  }
-
   .account-grid {
     grid-template-columns: 1fr;
+    gap: 24px;
   }
 
   .account-card {

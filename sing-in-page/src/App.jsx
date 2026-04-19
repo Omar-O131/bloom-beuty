@@ -99,6 +99,15 @@ function CartIcon() {
   );
 }
 
+function EyeIcon() {
+  return (
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+      <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+      <circle cx="12" cy="12" r="3" />
+    </svg>
+  );
+}
+
 function TruckIcon() {
   return (
     <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
@@ -427,18 +436,6 @@ function Navigation() {
 function AccountSection() {
   return (
     <section className="account-section">
-      <div className="account-heading">
-        <a className="back-link" href="/">
-          Return to previous page
-        </a>
-        <div className="breadcrumbs">
-          <a href="/">Home</a>
-          <span>/</span>
-          <span>My account</span>
-        </div>
-        <h1>My account</h1>
-      </div>
-
       <div className="account-grid">
         <article className="account-card">
           <h2>Login</h2>
@@ -447,7 +444,12 @@ function AccountSection() {
             <input id="username" type="text" />
 
             <label htmlFor="password">Password *</label>
-            <input id="password" type="password" />
+            <div className="password-field">
+              <input id="password" type="password" />
+              <button type="button" className="password-toggle" aria-label="Show password">
+                <EyeIcon />
+              </button>
+            </div>
 
             <div className="remember-row">
               <label className="checkbox-row">
@@ -527,8 +529,20 @@ function ExchangePolicy() {
 }
 
 function Footer() {
-  const infoLinks = ["About Us", "Privacy Policy", "Order History", "Terms & Conditions", "Contact Us"];
-  const accountLinks = ["My Account", "Brand", "Gift Certificates", "Affiliates", "My Wishlist"];
+  const infoLinks = [
+    { label: "About Us", href: "https://beauty-bloom.net/about-us/" },
+    { label: "Privacy Policy", href: "https://beauty-bloom.net/privacy-policy/" },
+    { label: "Order History", href: "https://beauty-bloom.net/my-account/orders/" },
+    { label: "Terms & Conditions", href: "https://beauty-bloom.net/terms-and-conditions/" },
+    { label: "Contact Us", href: "https://beauty-bloom.net/contact-us/" },
+  ];
+  const accountLinks = [
+    { label: "My Account", href: "#" },
+    { label: "Brand", href: "#" },
+    { label: "Gift Certificates", href: "#" },
+    { label: "Affiliates", href: "#" },
+    { label: "My Wishlist", href: "#" },
+  ];
 
   return (
     <footer className="site-footer">
@@ -545,9 +559,15 @@ function Footer() {
 
             <div className="footer-follow">
               <p>Follow Us:</p>
-              <button type="button" className="instagram-button" aria-label="Follow us on Instagram">
+              <a
+                href="https://www.instagram.com/Beautybloom.brands"
+                target="_blank"
+                rel="noreferrer"
+                className="instagram-button"
+                aria-label="Follow us on Instagram"
+              >
                 <InstagramIcon />
-              </button>
+              </a>
             </div>
           </div>
 
@@ -555,11 +575,11 @@ function Footer() {
             <h4>Information</h4>
             <ul className="footer-links">
               {infoLinks.map((item) => (
-                <li key={item}>
-                  <button type="button" className="footer-link-button">
+                <li key={item.label}>
+                  <a href={item.href} className="footer-link-button">
                     <ChevronRight />
-                    {item}
-                  </button>
+                    {item.label}
+                  </a>
                 </li>
               ))}
             </ul>
@@ -569,11 +589,11 @@ function Footer() {
             <h4>My Account</h4>
             <ul className="footer-links">
               {accountLinks.map((item) => (
-                <li key={item}>
-                  <button type="button" className="footer-link-button">
+                <li key={item.label}>
+                  <a href={item.href} className="footer-link-button">
                     <ChevronRight />
-                    {item}
-                  </button>
+                    {item.label}
+                  </a>
                 </li>
               ))}
             </ul>
@@ -592,13 +612,12 @@ function Footer() {
               </li>
               <li>
                 <span className="contact-icon"><MailIcon /></span>
-                <span>information@beauty-bloom.net</span>
+                <span>information@loving-wescoff.85-215-252-72.plesk.page</span>
               </li>
               <li>
                 <span className="contact-icon"><ClockIcon /></span>
                 <div>
-                  <p>Sat-Thu 9:00am - 5:00pm</p>
-                  <p>Friday: Closed</p>
+                  <p>Sat-Thu 9:00pm - 5:00pm Friday:Closed</p>
                 </div>
               </li>
             </ul>
