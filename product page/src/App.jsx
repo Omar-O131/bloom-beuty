@@ -1,6 +1,6 @@
-import { useEffect, useState } from "react";
-import HeaderMenuPage from "./HeaderMenuPage";
-
+import { useState } from "react";
+import HeaderMenuApp from '../../Header-menu/src/App';
+import FooterSectionApp from '../../footer-section/src/App';
 const product = {
   brand: "CHANEL",
   title: "CHANEL SUBLIMAGE LE SERUM YEUX",
@@ -28,15 +28,6 @@ const product = {
   ],
 };
 
-const navItems = [
-  { label: "Makeup", href: "https://beauty-bloom.net/product-tag/makeup/" },
-  { label: "New Arrivals", href: "https://beauty-bloom.net/product-tag/new-arrivals/" },
-  { label: "Skin Care", href: "https://beauty-bloom.net/product-tag/skin-care/" },
-  { label: "Hair Care", href: "https://beauty-bloom.net/product-tag/hair-care/" },
-  { label: "Perfumes", href: "https://beauty-bloom.net/product-tag/perfumes/" },
-  { label: "Brushes & Tools", href: "https://beauty-bloom.net/product-tag/brushes-tools/" },
-];
-
 const supportCards = [
   {
     title: "Fast delivery",
@@ -58,29 +49,6 @@ const supportCards = [
     text: "Ongoing discounts & reward points - more perks every time you shop",
     icon: "money",
   },
-];
-
-const footerFeatures = [
-  { title: "FAST DELIVERY", icon: "delivery" },
-  { title: "100% AUTHENTIC PRODUCTS", icon: "authentic" },
-  { title: "PRICES YOU CAN'T RESIST", icon: "prices" },
-  { title: "ALL ACROSS PALESTINE IN 2 DAYS!", icon: "shipping" },
-];
-
-const infoLinks = [
-  "About Us",
-  "Privacy Policy",
-  "Order History",
-  "Terms & Conditions",
-  "Contact Us",
-];
-
-const accountLinks = [
-  "My Account",
-  "Brand",
-  "Gift Certificates",
-  "Affiliates",
-  "My Wishlist",
 ];
 
 const tabs = ["Description", "How To Use", "Reviews (0)"];
@@ -183,144 +151,14 @@ function ProductCardActionIcon({ type }) {
   );
 }
 
-function FooterFeatureIcon({ type }) {
-  if (type === "delivery" || type === "shipping") {
-    return (
-      <svg viewBox="0 0 24 24" aria-hidden="true">
-        <path d="M3 8h10v7H3z" />
-        <path d="M13 10h3l3 3v2h-6z" />
-        <circle cx="7" cy="18" r="2" />
-        <circle cx="17" cy="18" r="2" />
-      </svg>
-    );
-  }
-
-  if (type === "authentic") {
-    return (
-      <svg viewBox="0 0 24 24" aria-hidden="true">
-        <path d="M12 3 5 6v5c0 4.3 3 8.2 7 10 4-1.8 7-5.7 7-10V6z" />
-        <path d="m9.5 12 1.7 1.7 3.3-3.6" />
-      </svg>
-    );
-  }
-
-  return (
-    <svg viewBox="0 0 24 24" aria-hidden="true">
-      <path d="M12 3c4 0 7 2 7 4.5S16 12 12 12 5 10 5 7.5 8 3 12 3z" />
-      <path d="M7 12v3c0 1.7 2.2 3 5 3s5-1.3 5-3v-3" />
-      <path d="M9 7.5h6" />
-      <path d="M12 5v5" />
-    </svg>
-  );
-}
-
-function FooterContactIcon({ type }) {
-  if (type === "location") {
-    return (
-      <svg viewBox="0 0 24 24" aria-hidden="true">
-        <path d="M12 21s6-6.2 6-11a6 6 0 1 0-12 0c0 4.8 6 11 6 11z" />
-        <circle cx="12" cy="10" r="2.2" />
-      </svg>
-    );
-  }
-
-  if (type === "phone") {
-    return (
-      <svg viewBox="0 0 24 24" aria-hidden="true">
-        <path d="M7 4h3l1 4-2 2c1.2 2.2 2.9 3.9 5.1 5.1l2-2 4 1v3c0 1-1 2-2 2C10.8 19 5 13.2 5 6c0-1 1-2 2-2z" />
-      </svg>
-    );
-  }
-
-  if (type === "mail") {
-    return (
-      <svg viewBox="0 0 24 24" aria-hidden="true">
-        <path d="M4 6h16v12H4z" />
-        <path d="m4 8 8 6 8-6" />
-      </svg>
-    );
-  }
-
-  return (
-    <svg viewBox="0 0 24 24" aria-hidden="true">
-      <circle cx="12" cy="12" r="8" />
-      <path d="M12 7v5l3 2" />
-    </svg>
-  );
-}
-
-function MenuIcon() {
-  return (
-    <svg viewBox="0 0 24 24" aria-hidden="true">
-      <path d="M4 7H20" />
-      <path d="M4 12H20" />
-      <path d="M4 17H20" />
-    </svg>
-  );
-}
-
-function SearchIcon() {
-  return (
-    <svg viewBox="0 0 24 24" aria-hidden="true">
-      <circle cx="11" cy="11" r="6.5" />
-      <path d="M16 16L21 21" />
-    </svg>
-  );
-}
-
-function UserIcon() {
-  return (
-    <svg viewBox="0 0 24 24" aria-hidden="true">
-      <circle cx="12" cy="8" r="4" />
-      <path d="M4 21C4 17.5 7.5 15 12 15C16.5 15 20 17.5 20 21" />
-    </svg>
-  );
-}
-
-function MessageIcon() {
-  return (
-    <svg viewBox="0 0 24 24" aria-hidden="true">
-      <path d="M21 11.5a8.4 8.4 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.4 8.4 0 0 1-3.8-.9L3 21l1.9-5.7a8.4 8.4 0 0 1-.9-3.8 8.5 8.5 0 0 1 8.5-8.5h.5a8.5 8.5 0 0 1 8 8z" />
-    </svg>
-  );
-}
-
-function HeartIcon() {
-  return (
-    <svg viewBox="0 0 24 24" aria-hidden="true">
-      <path d="M12 20.5L10.7 19.3C5.8 14.8 3 12.1 3 8.8C3 6.1 5 4 7.7 4C9.2 4 10.7 4.7 11.7 5.9C12.7 4.7 14.2 4 15.7 4C18.4 4 20.4 6.1 20.4 8.8C20.4 12.1 17.6 14.8 12.7 19.3L12 20.5Z" />
-    </svg>
-  );
-}
-
-function CartIcon() {
-  return (
-    <svg viewBox="0 0 24 24" aria-hidden="true">
-      <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z" />
-      <path d="M3 6h18" />
-      <path d="M16 10a4 4 0 0 1-8 0" />
-    </svg>
-  );
-}
-
 function App() {
   const [activeImage, setActiveImage] = useState(0);
   const [quantity, setQuantity] = useState(1);
   const [activeTab, setActiveTab] = useState(tabs[0]);
-  const [openMenu, setOpenMenu] = useState(false);
   const [zoomStyle, setZoomStyle] = useState({
     backgroundPosition: "50% 50%",
     opacity: 0,
   });
-
-  useEffect(() => {
-    const previousOverflow = document.body.style.overflow;
-    document.body.style.overflow = openMenu ? "hidden" : previousOverflow;
-
-    return () => {
-      document.body.style.overflow = previousOverflow;
-    };
-  }, [openMenu]);
 
   const handleZoomMove = (event) => {
     const bounds = event.currentTarget.getBoundingClientRect();
@@ -342,61 +180,7 @@ function App() {
 
   return (
     <div className="page-shell">
-      <HeaderMenuPage isOpen={openMenu} onClose={() => setOpenMenu(false)} />
-
-      <header className="shop-header">
-        <a className="shop-header__logo" href="https://beauty-bloom.net/">
-          <img
-            src="https://cdn.beauty-bloom.net/wp-content/uploads/2025/08/Logo-bloom.webp"
-            alt="Bloom Beauty"
-          />
-        </a>
-
-        <button type="button" className="menu-toggle" aria-label="Open menu" onClick={() => setOpenMenu(true)}>
-          <MenuIcon />
-        </button>
-
-        <div className="search-bar">
-          <span>Search for</span>
-          <strong> Mascara</strong>
-          <button type="button" className="search-bar__icon" aria-label="Search">
-            <SearchIcon />
-          </button>
-        </div>
-
-        <div className="header-actions">
-          <span className="header-icon-wrap">
-            <UserIcon />
-          </span>
-          <span className="header-icon-wrap with-count">
-            <MessageIcon />
-            <em>0</em>
-          </span>
-          <span className="header-icon-wrap with-count">
-            <HeartIcon />
-            <em>0</em>
-          </span>
-          <span className="header-icon-wrap with-count">
-            <CartIcon />
-            <em>0</em>
-          </span>
-          <span className="header-language">
-            <img
-              src="https://upload.wikimedia.org/wikipedia/commons/0/0d/Flag_of_Saudi_Arabia.svg"
-              alt=""
-            />
-            Arabic
-          </span>
-        </div>
-      </header>
-
-      <nav className="category-strip">
-        {navItems.map((item) => (
-          <a key={item.label} href={item.href} className="category-pill">
-            <span>{item.label}</span>
-          </a>
-        ))}
-      </nav>
+      <HeaderMenuApp />
 
       <main id="product" className="product-page">
         <aside className="support-sidebar">
@@ -440,6 +224,7 @@ function App() {
               }}
             />
           </div>
+
           <div className="thumbnail-strip">
             {product.gallery.map((image, index) => (
               <button
@@ -475,7 +260,9 @@ function App() {
             </span>
           </div>
 
-          <p className="viewing-line">{product.viewers} people are viewing this product right now</p>
+          <p className="viewing-line">
+            {product.viewers} people are viewing this product right now
+          </p>
 
           <div className="brand-block">
             <div className="brand-name">{product.brand}</div>
@@ -514,6 +301,7 @@ function App() {
                 +
               </button>
             </div>
+
             <button type="button" className="add-cart-button">
               ADD TO CART
             </button>
@@ -560,10 +348,16 @@ function App() {
               ))}
             </>
           )}
+
           {activeTab === "How To Use" && (
-            <p>Apply a small amount to the eye contour morning and evening using gentle tapping motions.</p>
+            <p>
+              Apply a small amount to the eye contour morning and evening using gentle tapping motions.
+            </p>
           )}
-          {activeTab === "Reviews (0)" && <p>There are no reviews yet for this product.</p>}
+
+          {activeTab === "Reviews (0)" && (
+            <p>There are no reviews yet for this product.</p>
+          )}
         </div>
       </section>
 
@@ -572,10 +366,16 @@ function App() {
         <div className="similar-grid">
           {similarProducts.map((item) => (
             <article key={item.title} className="similar-card">
-              {item.badge ? <span className="similar-badge">{item.badge}</span> : <span className="similar-badge spacer" />}
+              {item.badge ? (
+                <span className="similar-badge">{item.badge}</span>
+              ) : (
+                <span className="similar-badge spacer" />
+              )}
+
               <div className="similar-image">
                 <img className="default-image" src={item.image} alt={item.title} />
                 <img className="hover-image" src={item.hoverImage} alt={`${item.title} alternate`} />
+
                 <div className="similar-actions">
                   <button type="button" aria-label="Quick view">
                     <ProductCardActionIcon type="view" />
@@ -585,11 +385,14 @@ function App() {
                   </button>
                 </div>
               </div>
+
               <h3>{item.title}</h3>
+
               <p className="similar-price">
                 {item.price}
                 {product.currency}
               </p>
+
               <button type="button" className="similar-button">
                 <span>SELECT OPTIONS</span>
               </button>
@@ -597,102 +400,7 @@ function App() {
           ))}
         </div>
       </section>
-
-      <section className="footer-features">
-        <div className="footer-features__inner">
-          {footerFeatures.map((item) => (
-            <div key={item.title} className="footer-feature">
-              <FooterFeatureIcon type={item.icon} />
-              <span>{item.title}</span>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      <section className="exchange-policy">
-        <div className="exchange-policy__inner">
-          <h3>Exchange and Return Policy</h3>
-          <ul>
-            <li>Exchanges are available within 2 days of receiving the order, provided the item is new, clean, and unused.</li>
-            <li>If the product is found broken or damaged during delivery, we will replace it with a new one at no extra cost.</li>
-            <li>No returns or exchanges will be accepted if the product is damaged due to customer misuse.</li>
-          </ul>
-        </div>
-      </section>
-
-      <footer className="site-footer">
-        <div className="site-footer__inner">
-          <div className="footer-brand">
-            <img
-              src="https://cdn.beauty-bloom.net/wp-content/uploads/2025/08/Logo-bloom.webp"
-              alt="Bloom Beauty"
-            />
-            <p className="footer-brand-title">At Beauty Bloom</p>
-            <p>we are here to make your beauty journey simple, elegant, and trustworthy</p>
-
-            <div className="footer-social">
-              <span>Follow Us:</span>
-              <button type="button" aria-label="Instagram">
-                <svg viewBox="0 0 24 24" aria-hidden="true">
-                  <rect x="4" y="4" width="16" height="16" rx="5" />
-                  <circle cx="12" cy="12" r="4" />
-                  <circle cx="17" cy="7" r="1" />
-                </svg>
-              </button>
-            </div>
-          </div>
-
-          <div className="footer-links">
-            <h4>Information</h4>
-            <ul>
-              {infoLinks.map((item) => (
-                <li key={item}>
-                  <a href="#product">{item}</a>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          <div className="footer-links">
-            <h4>My Account</h4>
-            <ul>
-              {accountLinks.map((item) => (
-                <li key={item}>
-                  <a href="#product">{item}</a>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          <div className="footer-contact">
-            <h4>Contact Info.</h4>
-            <ul>
-              <li>
-                <FooterContactIcon type="location" />
-                <span>Ramallah Palestine</span>
-              </li>
-              <li>
-                <FooterContactIcon type="phone" />
-                <span>WhatsApp : (+972) 59-4871814</span>
-              </li>
-              <li>
-                <FooterContactIcon type="mail" />
-                <span>information@beauty-bloom.net</span>
-              </li>
-              <li>
-                <FooterContactIcon type="clock" />
-                <span>Sat-Thu 9:00am - 5:00pm Friday: Closed</span>
-              </li>
-            </ul>
-
-            <img
-              className="payment-image"
-              src="https://cdn.beauty-bloom.net/wp-content/uploads/2025/08/payment.webp"
-              alt="Payment methods"
-            />
-          </div>
-        </div>
-      </footer>
+      <FooterSectionApp   />
     </div>
   );
 }

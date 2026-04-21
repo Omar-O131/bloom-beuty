@@ -1,7 +1,10 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App";
-import "./styles.css";
+import '../../Header-menu/src/index.css';
+import '../../footer-section/src/styles.css';
+import './styles.css';
+
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <App />

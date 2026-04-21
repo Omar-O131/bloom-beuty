@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import { BloomCategoryNav, BloomHeader } from './components/BloomHeader';
-import { BloomFooterSections } from './components/BloomFooterSections';
+import HeaderMenuApp from '../../Header-menu/src/App';
+import FooterSectionApp from '../../footer-section/src/App';
 
 const sideLinks = [
   { label: 'Dashboard', icon: '◆', view: 'dashboard' },
@@ -189,6 +189,7 @@ function DashboardContent({ onNavigate }) {
                 />
                 <ProductActionIcons />
               </div>
+
               {product.colors.length > 0 && (
                 <div className="product-card__swatches">
                   {product.colors.map((color) => (
@@ -196,13 +197,16 @@ function DashboardContent({ onNavigate }) {
                   ))}
                 </div>
               )}
+
               <h4>{product.title}</h4>
+
               <div className="product-card__price-row">
                 {product.oldPrice && (
                   <span className="product-card__old-price">{product.oldPrice}</span>
                 )}
                 <span className="product-card__price">{product.price}</span>
               </div>
+
               <a
                 className="product-card__button"
                 href="/"
@@ -392,14 +396,19 @@ function App() {
 
   return (
     <div className="page-shell">
-      <BloomHeader />
-      <BloomCategoryNav />
+      <HeaderMenuApp />
 
-      <section className="hero-banner">
+      <section className={isStorefrontView ? 'hero-banner hero-banner--compact' : 'hero-banner'}>
         <h1>{heroTitles[activeView] || 'My Account'}</h1>
       </section>
 
-      <main className={isStorefrontView ? 'account-layout account-layout--storefront' : 'account-layout'}>
+      <main
+        className={
+          isStorefrontView
+            ? 'account-layout account-layout--storefront'
+            : 'account-layout'
+        }
+      >
         {!isStorefrontView && (
           <aside className="account-sidebar">
             <div className="avatar-circle">
@@ -414,6 +423,7 @@ function App() {
                 />
               </svg>
             </div>
+
             <div className="account-meta">
               <strong>oghannam617</strong>
               <span>oghannam617@gmail.com</span>
@@ -440,7 +450,13 @@ function App() {
           </aside>
         )}
 
-        <section className={isStorefrontView ? 'account-content account-content--storefront' : 'account-content'}>
+        <section
+          className={
+            isStorefrontView
+              ? 'account-content account-content--storefront'
+              : 'account-content'
+          }
+        >
           {activeView === 'dashboard' && <DashboardContent onNavigate={setActiveView} />}
           {activeView === 'orders' && <OrdersContent />}
           {activeView === 'points' && <PointsContent />}
@@ -457,7 +473,7 @@ function App() {
         </section>
       </main>
 
-      <BloomFooterSections />
+      <FooterSectionApp />
     </div>
   );
 }
